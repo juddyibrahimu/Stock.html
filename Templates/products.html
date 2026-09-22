@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head><title>PRODUCTS</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='Style.css')}}">
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 90%;
+            margin: 20px auto;
+            background: wheat;
+        }
+        th,td{
+            padding: 10px;
+            border: 1px solid rgb(240, 73, 73);
+            text-align: left;
+
+            }
+        th{
+            background: maroon;
+            color: rgb(240, 177, 211);
+        }
+        tr.low td{
+            background: rgb(245, 112, 112);
+        }
+        </style></head>
+    <body>
+        <h1>All products</h1>
+    <table><tr><th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th></tr>
+        {% for p in products %}
+        <tr class="{{ 'low' if p.quantity < 10}}">
+            <td>{{p.id}}</td>
+            <td>{{p.name|trim}}</td>
+            <td>{{"{:,.0f}".format(p.price)}}</td>
+            <td>{{p.quantity}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    <p style="text-align: center;"><a href="/"><button>Back.</button></a></p>
+    </body>
+</html>

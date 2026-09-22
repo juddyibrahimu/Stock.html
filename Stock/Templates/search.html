@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html><head><title>
+    Search
+</title>
+<link rel="stylesheet" href="{{url_for('static', filename='Style.css')}}">
+<style>
+    #title{
+        margin: 0px 0px;
+    }
+    body{
+        background: pink;
+    }
+</style>
+</head>
+<body><h2 id="title">Product found: </h2>
+    {%if message%}
+      <p>{{message}}</p>
+    {%endif%}
+
+    {%if product_data%}
+      <p>Product_id: {{product_data.id}}</p>
+      <p>Name: {{product_data.name}}</p>
+      <p>Price: {{product_data.price}}</p>
+      <p>Quantity: {{product_data.quantity}}</p>
+    {%endif%}
+</body></html>

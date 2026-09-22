@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head><title>low low_stock</title>
+     <link rel="stylesheet" href="{{url_for('static', filename='Style.css')}}">
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 90%;
+            margin: 20 auto;
+            background: wheat;
+        }
+        th,td{
+            padding: 10px;
+            border: 2px solid maroon;
+            text-align: left;
+        }
+            th{
+            background: maroon;
+            color: rgb(240, 177, 211);
+        }
+    </style>
+</head>
+
+     <body><h1>Low Stock Product</h1>
+     <table><tr><th>ID</th><th>Name</th><th>Price</th><th>Quantity</th></tr>
+    {% for p in products %}
+        <tr class="{{ 'low' if p.quantity < 10}}">
+            <td>{{p.id}}</td>
+            <td>{{p.name|trim}}</td>
+            <td>{{"{:,.0f}".format(p.price)}}</td>
+            <td>{{p.quantity}}</td>
+        </tr>
+        {%endfor%}</table>
+    </body>
+</html>

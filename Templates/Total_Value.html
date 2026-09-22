@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Stock_value</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='Style.css')}}">
+    <style>
+        h1{
+            text-align: left;
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+<h1>Total value is: {{"{:,.0f}".format(total_value)}}</h1>
+
+</body>
+</html>
