@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("front_end.html")
+    return jsonify("front_end.html")
 
 @app.route("/products", methods=["GET"])
 def get_products():
