@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("front_end.html")
+    return jsonify("front_end.html")
 
 @app.route("/products", methods=["GET"])
 def get_products():
@@ -30,7 +30,7 @@ def get_products():
 def search_product():
     query = request.args.get("name", "").strip()
     if not query:
-        return jsonify({"message": "Search term is required"}), 400
+        return render_template({"message": "Search term is required"}), 400
 
     connection = sqlite3.connect("inventory.db")
     cursor = connection.cursor()
