@@ -1,4 +1,9 @@
-from flask import Flask,request,render_template, jsonify
+from flask import Flask,request,render_template, redirect, send_file
+from openpyxl import Workbook
+from io import BytesIO
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+
 import sqlite3
 
 app = Flask(__name__)
@@ -113,29 +118,6 @@ def update_product_form():
     connection.close()
     return render_template("update.html", message="Product updated successfully")
 
-@app.route("/products/<int:product_id>", methods=["PUT"])
-def update_product_api(product_id):
-    data = request.get_json() or {}
-    name = data.get("name")
-    price = data.get("price")
-    quantity = data.get("quantity")
-
-    if not name or price is None or quantity is None:
-        return render_template("update.html", message="Name, price and quantity are required"), 400
-
-    connection = sqlite3.connect("inventory.db")
-    cursor = connection.cursor()
-    cursor.execute("SELECT id FROM products WHERE id = ?", (product_id,))
-    if cursor.fetchone() is None:
-        connection.close()
-        return render_template("update.html", message="Product not found"), 404
-
-    cursor.execute("UPDATE products SET name = ?, price = ?, quantity = ? WHERE id = ?", 
-                   (name, float(price), int(quantity), product_id))
-    connection.commit()
-    connection.close()
-    return render_template("update.html", message="Product updated successfully")
-
 @app.route("/delete_product", methods=["POST"])
 def delete_product_form():
     product_id = request.form.get("product_id")
@@ -233,7 +215,7 @@ def low_stock():
     for product in products:
         product_data = {"id": product[0], "name": product[1], "price": product[2], "quantity": product[3]}
         products_list.append(product_data)
-    return jsonify(products_list)
+    return render_template("low_stock.html", products=products_list)
 
 @app.route("/show_product", methods=["GET"])
 def get_product():
@@ -265,6 +247,62 @@ def delete_product(product_id):
     connection.commit()
     connection.close()
     return render_template("delete_product.html", message="Product deleted successfully")
+
+@app.route("/download_excel", methods=["GET"])
+def download_excel():
+    
+    wb = Workbook()
+    ws = wb.active
+
+    
+    ws.append(["ID", "Name", "Price", "Quantity"])
+
+    connection = sqlite3.connect("inventory.db")
+    cursor = connection.cursor()
+    cursor.execute("SELECT id, name, price, quantity FROM products")
+    products = cursor.fetchall()
+    connection.close()
+
+    for product in products:
+        ws.append(product)
+
+
+    output = BytesIO()
+    wb.save(output)
+    output.seek(0)
+
+    return send_file(output, as_attachment=True, download_name="inventory.xlsx")
+@app.route("/download_pdf", methods=["GET"])
+def download_pdf():
+    output = BytesIO()
+    c = canvas.Canvas(output, pagesize=letter)
+    width, height = letter
+
+    connection = sqlite3.connect("inventory.db")
+    cursor = connection.cursor()
+    cursor.execute("SELECT id, name, price, quantity FROM products")
+    products = cursor.fetchall()
+    connection.close()
+
+    c.setFont("Helvetica-Bold", 12)
+    c.drawString(30, height - 30, "ID")
+    c.drawString(100, height - 30, "Name")
+    c.drawString(300, height - 30, "Price")
+    c.drawString(400, height - 30, "Quantity")
+
+    y = height - 50
+    for product in products:
+        c.setFont("Helvetica", 10)
+        c.drawString(30, y, str(product[0]))
+        c.drawString(100, y, product[1])
+        c.drawString(300, y, str(product[2]))
+        c.drawString(400, y, str(product[3]))
+        y -= 20
+
+    c.save()
+    output.seek(0)
+
+    return send_file(output, as_attachment=True, download_name="inventory.pdf", mimetype="application/pdf")
 
 if __name__ == "__main__":
     app.run(debug=True)
