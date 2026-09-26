@@ -5,51 +5,55 @@
 
     <title> Inventory_Management </title>
     <link rel="stylesheet" href="{{url_for('static', filename='Style.css')}}">
+<script src="https://kit.fontawesome.com/a68def8041.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-    <header>
-        <h1>Inventory_Management System</h1>
-        <p>Welcome to Inventory_Management System</p>
+    <header class="header">
+        <h1><i class="fa-solid fa-crown fa-fade" style="color: rgb(234, 206, 101);"></i>  Inventory_Management System 
+ <i class="fa-solid fa-crown fa-fade" style="color: rgb(234, 206, 101);"></i></h1>
+        <p>Welcome to Inventory_Management System<br>Keep your record for future!</p>
     </header>
 
-<h2>Search product</h2>
+<div class="search"><h2>Search product</h2>
+
         <form action="/show_product" method="GET">
         <input name="name" type="search" placeholder="Enter product name">
-        <button type="submit">Search</button></form>
+        <button type="submit"><i class="fa-brands fa-sistrix fa-xs" style="color: rgb(220, 175, 12);"></i> Search</button></form></div>
      
-    <h2>Add product</h2>
+    <div class="add"><h2>Add product</h2>
     <form action="/products" method="POST">
         <input name="name" placeholder="Product name" required>
         <input name="price" type="number" step="0.01" placeholder="Price" required>
         <input name="quantity" type="number" placeholder="Quantity required">
-        <button type="submit">Add Product</button>
-    </form>
+        <button type="submit"><i class="fa-solid fa-plus" style="color: rgb(220, 175, 12);"></i>Add Product</button>
+    </form></div>
 
 
-    <h2>Sell products</h2>
+    <div class="section"><div class="sell"><h2>Sell products</h2>
     <form action="/sales" method="POST">
         <input name="name" placeholder="Product name" required>
         <input name="quantity" type="number" placeholder="Quantity sold" required>
-        <button type="submit">Sell Product</button>
-    </form>
-    <h2>Update product</h2>
+        <button type="submit"><i class="fa-solid fa-cart-arrow-down fa-xs" style="color: rgb(220, 175, 12);"></i> Sell Product</button>
+    </form></div>
+
+    <div class="update"><h2>Update product</h2>
     <form action="/update_product" method="POST">
         <input type="number" name="product_id" placeholder="product id to update" required>
         <input name="name" placeholder="new name" required>
         <input type="number" name="price" placeholder="new price" required>
         <input type="number" name="quantity" step="0.01" placeholder="new quantity" required>
-        <button type="submit">Add new quantity</button>
-    </form>
-    <h2>DELETE PRODUCT</h2>
+        <button type="submit"><i class="fa-solid fa-pen-to-square fa-xs" style="color: rgb(220, 175, 12);"></i> Update product</button>
+    </form></div>
+
+    <div class="delete"><h2>Delete product</h2>
     <form action="/delete_product" method="POST">
         <input type="number" name="product_id" placeholder="product id to delete" required>
-        <input type="number" name="product_id" placeholder="product_id" required>
         <input name="name" placeholder="name" required>
-        <button type="submit">DELETE</button>
-    </form>
-
+        <button type="submit"><i class="fa-solid fa-trash-can fa-xs" style="color: rgb(220, 175, 12);"></i>  Delete</button>
+    </form></div>
+    </div>
 
     <h2>Reports</h2>
     <button>
