@@ -4,16 +4,21 @@
 </title>
 <link rel="stylesheet" href="{{url_for('static', filename='Style.css')}}">
 
-</head>
-<body><h2 id="title">Product found: </h2>
+</head><style>
+h2{text-align: center;}
+</style>
+<body><h2 id="title">PRODUCT IN STOCK! </h2><br>
     {%if message%}
       <p>{{message}}</p>
     {%endif%}
 
     {%if product_data%}
-      <p>Product_id: {{product_data.id}}</p>
-      <p>Name: {{product_data.name}}</p>
-      <p>Price: {{product_data.price}}</p>
-      <p>Quantity: {{product_data.quantity}}</p>
+      <p>ProductID: {{product_data.ProductID}}</p>
+      <p>ProductName: {{product_data.ProductName}}</p>
+      <p>Brand: {{product_data.Brand}}</p>
+      <p>Category: {{product_data.Category}}</p>
+      <p>Quality: {{product_data.Quality}}</p>
+      <p>Price: {{product_data.Price}}</p>
+      <p>Quantity: {{product_data.Quantity}}</p>
     {%endif%}
 </body></html>

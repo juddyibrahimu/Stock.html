@@ -27,14 +27,20 @@
         <h1>All products</h1>
     <table><tr><th>ID</th>
         <th>Name</th>
-        <th>Price</th>
-        <th>Quantity</th></tr>
+        <th>Brands</th>
+        <th>Category</th>
+         <th>Quality</th>
+          <th>Price</th>
+           <th>Quantity</th>
         {% for p in products %}
-        <tr class="{{ 'low' if p.quantity < 10}}">
-            <td>{{p.id}}</td>
-            <td>{{p.name|trim}}</td>
-            <td>{{"{:,.0f}".format(p.price)}}</td>
-            <td>{{p.quantity}}</td>
+        <tr class="{{ 'low' if p.Quantity|int <= 5}}">
+            <td>{{p.ProductID}}</td>
+            <td>{{p.ProductName|trim}}</td>
+            <td>{{p.Brand|trim}}</td>
+            <td>{{p.Category|trim}}</td>
+            <td>{{p.Quality|trim}}</td>
+            <td>{{"{:,.0f}".format(p.Price|float)}}</td>
+            <td>{{p.Quantity}}</td>
         </tr>
         {%endfor%}
     </table>

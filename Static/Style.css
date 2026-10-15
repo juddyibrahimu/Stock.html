@@ -16,6 +16,7 @@ body{
 
 }
 .search{
+text-align: center;
 width: 60em;
 padding: 30px;
 border: 2px solid #d4af37;
@@ -106,7 +107,7 @@ a:active{
 color: lightblue;
 }
 a:visited{
-color: pink;
+color:#d4af37;
 }
 
 input{
@@ -116,7 +117,7 @@ input{
     border: 2px;
     border-radius: 5px;
     padding: 6px 10px;
-    margin: 20px 10px
+    margin: 20px 10px;
 
 }
 h1{
@@ -132,3 +133,25 @@ button{
     color:  #d4af37;
     background-color: rgb(75, 20, 3);
 }
+.reports{
+text-align: center;
+width: 60em;
+padding: 30px;
+border: 2px solid #d4af37;
+border-radius: 15px;
+margin: 3% 0 0 10px;
+cursor: pointer;
+box-shadow: 0 0 10px #d4af37;
+animation: glow 1.5s infinite alternate;
+}
+@keyframes glow{
+from{ 
+    box-shadow: #d4af37;}
+to{
+box-shadow: 0 0 25px ;
+}}
+nav{
+display: flex;
+gap: 20px;
+}
+
